@@ -1,20 +1,20 @@
 {%  extends "base.html" %}
 {% block content %}
     <div class="content-section">
-    <form method="POST" action="/login">
+    <form method="POST" action="">
         {{ form.hidden_tag() }}
         <fieldset class="form-group">
-            <legend class="mb-4">New Post</legend>
+            <legend class="mb-4">{{ legend}}</legend>
             
             <div class="form-group  pt-3">
                 {{ form.title.label(class='form-control-label')}}
                 {% if form.title.errors %}
                     {{ form.title(class="form-control form-control is-invalid ")}}
-                <div class="invalid-feedback">
-                    {% for error in form.title.errors%}
-                        <span> {{ error}}</span>
-                    {% endfor %}   
-                </div>
+                    <div class="invalid-feedback">
+                        {% for error in form.title.errors%}
+                            <span> {{ error}}</span>
+                        {% endfor %}   
+                    </div>
                 {% else %}
                  {{ form.title(class='form-control')}}
                 {% endif %}   
@@ -23,11 +23,11 @@
                 {{ form.content.label(class='form-control-label')}}
                 {% if form.content.errors %}
                     {{ form.content(class="form-control form-control is-invalid ")}}
-                  <div class="invalid-feedback">
+                    <div class="invalid-feedback">
                     {% for error in form.content.errors%}
                         <span> {{ error}}</span>
                     {% endfor %}   
-                  </div>
+                   </div>
                 {% else %}
                      {{ form.content(class='form-control')}}
                 {% endif %}   

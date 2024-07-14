@@ -20,3 +20,27 @@ login_manager.login_message_category = 'info'
 
 
 from flaskblog import routes
+
+# import json
+# from flaskblog import app, db
+# from flaskblog.models import Post
+
+# # Correct path to the JSON file
+# json_file_path = 'D:/Machine Learning/Python/flaskblog/posts.json'
+
+# # Read JSON file
+# with open(json_file_path, 'r') as file:
+#     data = json.load(file)
+
+# # Insert data into the database
+# with app.app_context():
+#     for item in data:
+#         post = Post(
+#             title=item['title'],
+#             content=item['content'],
+#             user_id=item['user_id']
+#         )
+#         db.session.add(post)
+#     db.session.commit()
+
+# print("Data loaded successfully!")
