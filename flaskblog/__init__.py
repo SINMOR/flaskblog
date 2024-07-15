@@ -6,6 +6,7 @@ from flask_login import LoginManager
 
 
 
+
 app = Flask(__name__)
 app.config ['SECRET_KEY'] = 'e23df669a5280a7d44d68eccb41e021d' 
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -19,7 +20,11 @@ login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
 
 
-from flaskblog import routes
+from flaskblog import routes,models
+
+@app.shell_context_processor
+def make_shell_context():
+    return {'db': db, 'User': models.User, 'Post': models.Post}
 
 # import json
 # from flaskblog import app, db
