@@ -1,5 +1,5 @@
 from datetime import datetime
-from flaskblog import  app, db , login_manager
+from flaskblog import app, db , login_manager
 from flask_login import UserMixin
 # from itsdangerous import TimedSerializer as Serializer # a flask  extension used to generate token  
 from cryptography.fernet import Fernet

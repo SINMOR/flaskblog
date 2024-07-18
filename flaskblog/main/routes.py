@@ -1,4 +1,5 @@
-from flask import Blueprint ,render_template, request
+from . import main
+from flask import Blueprint ,render_template, request, current_app
 from flaskblog.models import Post
 
 main  = Blueprint('main', __name__)

@@ -19,26 +19,27 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 db_path = os.path.join(basedir,  'blog.db')
 app.config['SQLALCHEMY_DATABASE_URI']= f'sqlite:///{db_path}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
-bcrypt = Bcrypt(app)
-login_manager = LoginManager(app)
-login_manager.login_view = 'users.login'
-login_manager.login_message_category = 'info'
+
 app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] =  os.getenv("email")
 app.config['MAIL_PASSWORD'] = os.getenv("password")
+
+db = SQLAlchemy(app)
+bcrypt = Bcrypt(app)
+login_manager = LoginManager(app)
+login_manager.login_view = 'users.login'
+login_manager.login_message_category = 'info'
 mail = Mail(app)
 
+from flaskblog.users.routes import users as users_blueprint
+from flaskblog.posts.routes import posts as posts_blueprint
+from flaskblog.main.routes import main as main_blueprint
 
-from flaskblog.users.routes import users
-from flaskblog.posts.routes import posts
-from flaskblog.main.routes import main
-
-app.register_blueprint(users)
-app.register_blueprint(posts)
-app.register_blueprint(main)
+app.register_blueprint(users_blueprint)
+app.register_blueprint(posts_blueprint)
+app.register_blueprint(main_blueprint)
 
 from flaskblog import models
 
