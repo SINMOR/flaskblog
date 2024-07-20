@@ -1,6 +1,7 @@
 from datetime import datetime
-from flaskblog import app, db, login_manager
+from flaskblog import db, login_manager
 from flask_login import UserMixin
+from flask import current_app
 
 # from itsdangerous import TimedSerializer as Serializer # a flask  extension used to generate token
 from cryptography.fernet import Fernet
@@ -20,7 +21,7 @@ def get_fernet_key(secret_key):
     return base64.urlsafe_b64encode(key.encode())
 
 
-fernet_key = get_fernet_key(app.config["SECRET_KEY"])
+fernet_key = get_fernet_key(current_app.config["SECRET_KEY"])
 fernet = Fernet(fernet_key)
 
 

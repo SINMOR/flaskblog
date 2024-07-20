@@ -21,9 +21,8 @@ from flaskblog.users.utils import save_picture, send_reset_email
 
 users = Blueprint("users", __name__, template_folder="templates")
 
-users.route("/register", methods=["GET", "POST"])
 
-
+@users.route("/register", methods=["GET", "POST"])
 def register():
     if current_user.is_authenticated:
         return redirect(url_for("main.home"))
@@ -42,9 +41,7 @@ def register():
     return render_template("users/register.html", title="Register", form=form)
 
 
-users.route("/login", methods=["GET", "POST"])
-
-
+@users.route("/login", methods=["GET", "POST"])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for("main.home"))
@@ -61,17 +58,13 @@ def login():
     return render_template("users/login.html", title="Login", form=form)
 
 
-users.route("/logout", endpoint="logout")
-
-
+@users.route("/logout", endpoint="logout")
 def logout():
     logout_user()
     return redirect(url_for("main.home"))
 
 
-users.route("/account", methods=["GET", "POST"])
-
-
+@users.route("/account", methods=["GET", "POST"])
 @login_required
 def account():
     form = UpdateAccountForm()
@@ -94,9 +87,7 @@ def account():
     )
 
 
-users.route("/user/<string:username>")
-
-
+@users.route("/user/<string:username>")
 def user_posts(username):
     page = request.args.get(
         "page", 1, type=int
@@ -110,9 +101,7 @@ def user_posts(username):
     return render_template("users/user_posts.html", posts=posts, user=user)
 
 
-users.route("/reset_password", methods=["GET", "POST"])
-
-
+@users.route("/reset_password", methods=["GET", "POST"])
 def reset_request():
     if current_user.is_authenticated:
         return redirect(url_for("main.home"))
@@ -127,9 +116,7 @@ def reset_request():
     )
 
 
-users.route("/reset_password/<token>", methods=["GET", "POST"])
-
-
+@users.route("/reset_password/<token>", methods=["GET", "POST"])
 def reset_token(token):
     if current_user.is_authenticated:
         return redirect(url_for("main.home"))
@@ -143,6 +130,7 @@ def reset_token(token):
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode(
             "utf-8"
         )
+        user.verified = True
         user.password = hashed_password
         db.session.commit()
         flash("Your password  has been updated! You can login ", "success")
