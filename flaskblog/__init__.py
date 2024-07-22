@@ -18,7 +18,6 @@ login_manager.login_message_category = "info"
 mail = Mail()
 
 
-@app.shell_context_processor
 def create_app(config_class=Config):
     app = Flask(__name__)
 
@@ -39,6 +38,7 @@ def create_app(config_class=Config):
 
     from flaskblog import models
 
+    @app.shell_context_processor
     def make_shell_context():
         return {"db": db, "User": models.User, "Post": models.Post}
 
